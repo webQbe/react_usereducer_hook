@@ -2,7 +2,7 @@
 
 - Managing state without `useState` hook
 - Managing complex states in React with `useReducer`
-- React app that uses 3 different pieces state
+- This React app that used 3 different pieces state
     1. `const [userInput, setUserInput] = useState('');` 
     2. `const [count, setCount] = useState(0);` 
     3. `const [color, setColor] = useState(false);` 
