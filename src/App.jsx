@@ -1,13 +1,30 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
+
+/* Reducer Function */
+const reducer = (state, action) => { // take the current state and an action
+  // Based on action.type, update the count
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 }; // Increase count by 1
+    case 'decrement':
+      return { count: state.count - 1 }; // Decrease count by 1
+    default:
+      throw new Error(); // throw an error if an unknown action is dispatched
+  }
+}
 
 function App() {
-  /* Create three pieces of state */
+
+  // Initialize counter state with { count: 0 } and provide dispatch() for updating state
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
   const [userInput, setUserInput] = useState(''); // Store the text from the input field
-  const [count, setCount] = useState(0); // Keep track of a numerical value, initially set to 0
   const [color, setColor] = useState(false); // Toggle between two text colors
 
-  /* Counter Buttons:
-  The + and - buttons update count using setCount(prev => prev ± 1), modifying the previous state. 
+  /* Button Clicks and Dispatching Actions
+    The - button calls dispatch({ type: 'decrement' }), decreasing the counter.
+    The + button calls dispatch({ type: 'increment' }), increasing the counter.
+
+  state.count holds the counter value, dispatch() triggers the reducer, updating state.count accordingly.
   
   Color Toggle Button:
   The "Color" button toggles color between true and false, changing the text color dynamically.
@@ -24,11 +41,12 @@ function App() {
         onChange={(e) => setUserInput(e.target.value)} // update userInput with the current text.
       />
       <br /><br />
-      <p>{count}</p>
+      <p>{state.count}</p>
       <section>
         {/* Counter Buttons */}
-        <button onClick={(() => setCount(prev => prev - 1))}>-</button>
-        <button onClick={(() => setCount(prev => prev + 1))}>+</button>
+        <button onClick={(() => dispatch({ type: 'decrement' }))}>-</button>
+        <button onClick={(() => dispatch({ type: 'increment' }))}>+</button>
+        {/* Color Toggle Button */}
         <button onClick={(() => setColor(prev => !prev))}>Color</button>
       </section>
       <br /><br />
