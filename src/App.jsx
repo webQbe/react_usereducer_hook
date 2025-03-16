@@ -20,6 +20,15 @@ const reducer = (state, action) => { // take the current state and an action
   }
 }
 
+// Store action types as properties 
+/* Prevents typos and ensures consistency when dispatching actions. */
+const ACTION = {
+  INCREMENT: 'increment',
+  DECREMENT: 'decrement',
+  NEW_USER_INPUT: 'newUserInput',
+  TG_COLOR: 'tgColor'
+}
+
 function App() {
 
   // Initialize state and use dispatch to update state by sending action objects
@@ -33,23 +42,25 @@ function App() {
   
     Color Toggle Button:
     The "Color" button toggles color between true and false, changing the text color dynamically.
+    
+    Use ACTION in dispatch Calls
   */
   return (
     <main className="App" style={{ color: state.color ? '#FFF' : '#FFF952' }}>
       <input
         type="text"
         value={state.userInput} // value is controlled by userInput
-        onChange={(e) => dispatch({ type: 'newUserInput', payload: e.target.value })} //  Dispatch action to update userInput when text is typed
+        onChange={(e) => dispatch({ type: ACTION.NEW_USER_INPUT, payload: e.target.value })} //  Dispatch action to update userInput when text is typed
       /> 
       <br /><br />
       {/* Display the count  */}
       <p>{state.count}</p>
       <section>
         {/* Counter Buttons */}
-        <button onClick={(() => dispatch({ type: 'decrement' }))}>-</button>
-        <button onClick={(() => dispatch({ type: 'increment' }))}>+</button>
+        <button onClick={(() => dispatch({ type: ACTION.DECREMENT }))}>-</button>
+        <button onClick={(() => dispatch({ type: ACTION.INCREMENT }))}>+</button>
         {/* Color Toggle Button */}
-        <button onClick={(() => dispatch({ type: 'tgColor' }))}>Color</button>
+        <button onClick={(() => dispatch({ type: ACTION.TG_COLOR }))}>Color</button>
       </section>
       <br /><br />
       {/* Display live input text. */}
